@@ -1,0 +1,28 @@
+.container {
+    text-align: center;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    margin-right: 20px;
+}
+
+.image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.details {
+    text-align: left;
+}
+
+.details p {
+    margin: 5px 0;
+}
