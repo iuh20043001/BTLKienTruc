@@ -1,100 +1,80 @@
 package vn.edu.iuh.fit.models;
 
 import jakarta.persistence.*;
-
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "student")
-public class Student implements Serializable {
+@Table(name = "students")
+public class Student {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    private int studentId;
+    private Integer studentId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    @Column(name = "birthdate")
+    private Date birthdate;
 
     @Column(name = "address")
     private String address;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "gender")
-    private String gender;
+    @ManyToOne
+    @JoinColumn(name = "major_id")
+    private Major major;
 
-    @Column(name = "enrollment_date")
-    private Date enrollmentDate;
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private Class clazz;
 
-    @Column(name = "major")
-    private String major;
+    @Column(name = "enrollment_year")
+    private Integer enrollmentYear;
 
-    @Column(name = "year")
-    private int year;
+    @Column(name = "education_level")
+    private String educationLevel;
 
-    @Column(name = "current_semester")
-    private int currentSemester;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @Column(name = "training_type")
+    private String trainingType;
+
+    @Column(name = "specialization")
+    private String specialization;
+
+    @Column(name = "campus")
+    private String campus;
+
+    @Column(name = "credits_registered")
+    private Integer creditsRegistered;
 
     @Column(name = "gpa")
-    private float gpa;
+    private Double gpa;
 
-    @Column(name = "status")
-    private String status;
-
-    @Column(name = "credits_earned")
-    private int creditsEarned;
-
-    @Column(name = "scholarship_status")
-    private String scholarshipStatus;
-
-    @Column(name = "advisor")
-    private String advisor;
-
-    @OneToMany(mappedBy = "student")
-    private List<Enrollment> enrollments;
-
+    @Column(name = "graduation_info")
+    private String graduationInfo;
 
     public Student() {
     }
 
-    public Student(int studentId) {
+    public Student(Integer studentId) {
         this.studentId = studentId;
     }
 
-    public Student(int studentId, String name, String email, Date dateOfBirth, String address, String phoneNumber, String gender, Date enrollmentDate, String major, int year, int currentSemester, float gpa, String status, int creditsEarned, String scholarshipStatus, String advisor, List<Enrollment> enrollments) {
-        this.studentId = studentId;
-        this.name = name;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-        this.enrollmentDate = enrollmentDate;
-        this.major = major;
-        this.year = year;
-        this.currentSemester = currentSemester;
-        this.gpa = gpa;
-        this.status = status;
-        this.creditsEarned = creditsEarned;
-        this.scholarshipStatus = scholarshipStatus;
-        this.advisor = advisor;
-        this.enrollments = enrollments;
-    }
-
-    public int getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -106,20 +86,12 @@ public class Student implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getAddress() {
@@ -130,6 +102,14 @@ public class Student implements Serializable {
         this.address = address;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -138,92 +118,112 @@ public class Student implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getEnrollmentDate() {
-        return enrollmentDate;
-    }
-
-    public void setEnrollmentDate(Date enrollmentDate) {
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public String getMajor() {
+    public Major getMajor() {
         return major;
     }
 
-    public void setMajor(String major) {
+    public void setMajor(Major major) {
         this.major = major;
     }
 
-    public int getYear() {
-        return year;
+    public Class getClazz() {
+        return clazz;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setClazz(Class clazz) {
+        this.clazz = clazz;
     }
 
-    public int getCurrentSemester() {
-        return currentSemester;
+    public Integer getEnrollmentYear() {
+        return enrollmentYear;
     }
 
-    public void setCurrentSemester(int currentSemester) {
-        this.currentSemester = currentSemester;
+    public void setEnrollmentYear(Integer enrollmentYear) {
+        this.enrollmentYear = enrollmentYear;
     }
 
-    public float getGpa() {
+    public String getEducationLevel() {
+        return educationLevel;
+    }
+
+    public void setEducationLevel(String educationLevel) {
+        this.educationLevel = educationLevel;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public String getTrainingType() {
+        return trainingType;
+    }
+
+    public void setTrainingType(String trainingType) {
+        this.trainingType = trainingType;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
+    public Integer getCreditsRegistered() {
+        return creditsRegistered;
+    }
+
+    public void setCreditsRegistered(Integer creditsRegistered) {
+        this.creditsRegistered = creditsRegistered;
+    }
+
+    public Double getGpa() {
         return gpa;
     }
 
-    public void setGpa(float gpa) {
+    public void setGpa(Double gpa) {
         this.gpa = gpa;
     }
 
-    public String getStatus() {
-        return status;
+    public String getGraduationInfo() {
+        return graduationInfo;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setGraduationInfo(String graduationInfo) {
+        this.graduationInfo = graduationInfo;
     }
 
-    public int getCreditsEarned() {
-        return creditsEarned;
-    }
-
-    public void setCreditsEarned(int creditsEarned) {
-        this.creditsEarned = creditsEarned;
-    }
-
-    public String getScholarshipStatus() {
-        return scholarshipStatus;
-    }
-
-    public void setScholarshipStatus(String scholarshipStatus) {
-        this.scholarshipStatus = scholarshipStatus;
-    }
-
-    public String getAdvisor() {
-        return advisor;
-    }
-
-    public void setAdvisor(String advisor) {
-        this.advisor = advisor;
-    }
-
-    public List<Enrollment> getCoursesEnrolled() {
-        return enrollments;
-    }
-
-    public void setCoursesEnrolled(List<Enrollment> coursesEnrolled) {
-        this.enrollments = coursesEnrolled;
+    public Student(Integer studentId, String name, Date birthdate, String address, String email, String phoneNumber, Major major, Class clazz, Integer enrollmentYear, String educationLevel, Department department, String trainingType, String specialization, String campus, Integer creditsRegistered, Double gpa, String graduationInfo) {
+        this.studentId = studentId;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.major = major;
+        this.clazz = clazz;
+        this.enrollmentYear = enrollmentYear;
+        this.educationLevel = educationLevel;
+        this.department = department;
+        this.trainingType = trainingType;
+        this.specialization = specialization;
+        this.campus = campus;
+        this.creditsRegistered = creditsRegistered;
+        this.gpa = gpa;
+        this.graduationInfo = graduationInfo;
     }
 
     @Override
@@ -231,21 +231,22 @@ public class Student implements Serializable {
         return "Student{" +
                 "studentId=" + studentId +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
+                ", birthdate=" + birthdate +
                 ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", gender='" + gender + '\'' +
-                ", enrollmentDate=" + enrollmentDate +
-                ", major='" + major + '\'' +
-                ", year=" + year +
-                ", currentSemester=" + currentSemester +
+                ", major=" + major +
+                ", clazz=" + clazz +
+                ", enrollmentYear=" + enrollmentYear +
+                ", educationLevel='" + educationLevel + '\'' +
+                ", department=" + department +
+                ", trainingType='" + trainingType + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", campus='" + campus + '\'' +
+                ", creditsRegistered=" + creditsRegistered +
                 ", gpa=" + gpa +
-                ", status='" + status + '\'' +
-                ", creditsEarned=" + creditsEarned +
-                ", scholarshipStatus='" + scholarshipStatus + '\'' +
-                ", advisor='" + advisor + '\'' +
-                ", coursesEnrolled=" + enrollments +
+                ", graduationInfo='" + graduationInfo + '\'' +
                 '}';
     }
+// Constructors, getters, setters, toString method
 }

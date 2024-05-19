@@ -1,44 +1,36 @@
 package vn.edu.iuh.fit.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.iuh.fit.entity.ResponsePages;
 import vn.edu.iuh.fit.models.Course;
+import vn.edu.iuh.fit.repositories.CourseRepository;
 import vn.edu.iuh.fit.services.CourseService;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/course")
+@RequestMapping(path = "/courses")
 @CrossOrigin(origins = "*")
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private CourseRepository courseRepository;
 
-    @PostMapping
-    public boolean create(@RequestBody Course course) {
-        return courseService.create(course) != null;
-    }
-
-    @PutMapping
-    public boolean update(@RequestBody Course course) {
-        return courseService.update(course) != null;
-    }
-
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable long id) {
-        courseService.delete(id);
-        return true;
+    @GetMapping
+    public List<Course> findAll() {
+        return courseRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Course getById(@PathVariable long id) {
-        return courseService.getById(id);
+    public Course findById(@PathVariable("id") long id) {
+        Optional<Course> course = courseRepository.findById(id);
+        return course.orElse(null);
     }
 
-    @GetMapping("get-page/{page}")
-    public ResponseEntity<ResponsePages> getAll(@PathVariable int page) {
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.getAll(Pageable.ofSize(10).withPage(page)));
+    @PutMapping
+    public Course update(@RequestBody Course course) {
+        return courseRepository.save(course);
     }
 }
