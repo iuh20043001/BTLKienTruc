@@ -1,0 +1,37 @@
+.container-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-info {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.logout-btn {
+    margin-top: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.links {
+    margin-top: 20px;
+}
+
+.links a {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-decoration: none;
+    color: blue;
+    margin-right: 1000px;
+}
+
+.links a:hover {
+    text-decoration: underline;
+    color: darkblue;
+}

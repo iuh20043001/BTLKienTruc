@@ -1,0 +1,44 @@
+.curriculum-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.curriculum-container h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.curriculum-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.curriculum-table th, .curriculum-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.curriculum-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.curriculum-table td {
+  background-color: #fff;
+}
+
+.curriculum-table tbody tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+.curriculum-table tbody tr:hover td {
+  background-color: #e2e2e2;
+}
+
+.curriculum-table input[type="checkbox"] {
+  margin: 0 auto;
+}

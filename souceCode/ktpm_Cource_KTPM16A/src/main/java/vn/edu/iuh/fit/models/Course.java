@@ -2,6 +2,8 @@ package vn.edu.iuh.fit.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "courses")
 public class Course {
@@ -26,6 +28,9 @@ public class Course {
     @Column(name = "max_students")
     private Integer maxStudents;
 
+    @OneToMany(mappedBy = "course")
+    private List<ClassRegistration> classRegistrations;
+
     // Constructors, getters, setters, toString method
 
     public Course() {}
@@ -43,6 +48,7 @@ public class Course {
                 ", credits=" + credits +
                 ", prerequisiteCourses='" + prerequisiteCourses + '\'' +
                 ", maxStudents=" + maxStudents +
+                ", classRegistrations=" + classRegistrations +
                 '}';
     }
 
@@ -94,5 +100,15 @@ public class Course {
 
     public void setMaxStudents(Integer maxStudents) {
         this.maxStudents = maxStudents;
+    }
+
+    public Course(Integer courseId, String courseCode, String courseName, Integer credits, String prerequisiteCourses, Integer maxStudents, List<ClassRegistration> classRegistrations) {
+        this.courseId = courseId;
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.credits = credits;
+        this.prerequisiteCourses = prerequisiteCourses;
+        this.maxStudents = maxStudents;
+        this.classRegistrations = classRegistrations;
     }
 }

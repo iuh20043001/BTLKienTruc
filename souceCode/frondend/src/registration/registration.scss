@@ -1,0 +1,213 @@
+.registration-container {
+  padding: 20px;
+}
+
+.registration-form {
+  margin-bottom: 20px;
+
+  label {
+    margin-right: 10px;
+  }
+
+  select {
+    margin-right: 10px;
+  }
+
+  .registration-options {
+    margin-top: 10px;
+
+    input[type='radio'] {
+      margin-right: 10px;
+    }
+  }
+}
+
+.selected-row {
+  background-color: #f2f2f2;
+}
+
+.registration-table,
+.class-registration-table,
+.registered-courses-table,
+.class-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+}
+
+.class-registration-container,
+.additional-info,
+.registered-courses {
+  margin-top: 20px;
+
+  h3, h4 {
+    margin-bottom: 10px;
+  }
+
+  .class-registration-options ,
+  .select-wrapper{
+    margin-bottom: 10px;
+
+    input[type='checkbox'] , label{
+      margin-right: 5px;
+    }
+  }
+}
+
+.additional-info {
+  .select-wrapper {
+    label {
+      margin-right: 10px;
+    }
+
+    select {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+  .btn-check-schedule {
+    padding: 8px 16px;
+    background-color: #eba93f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #dc9838;
+    }
+  }
+}
+
+.additional-info h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.select-wrapper {
+  margin-bottom: 10px;
+}
+
+.select-wrapper label {
+  margin-right: 10px;
+}
+
+.select-wrapper select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-check-schedule {
+  padding: 8px 16px;
+  background-color: #ff9500;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-check-schedule:hover {
+  background-color: #e09b2c;
+}
+
+.class-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.class-details-table th, .class-details-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.class-details-table th {
+  background-color: #f2f2f2;
+}
+
+.class-details-table tbody tr:nth-child(even) {
+  background-color: #fff; 
+}
+
+.class-details-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.btn-register-course {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #ff9900;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    background-color: #cc7a00;
+  }
+}
+
+.btn-register-course:hover {
+  background-color: darkorange; /* Màu cam sáng khi hover */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content button {
+  background-color: #e1dcd1;
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.dropdown-content button:hover {
+  background-color: #dcaa36;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
