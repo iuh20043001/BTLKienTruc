@@ -1,7 +1,9 @@
 package vn.edu.iuh.fit.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.models.ClassDetails;
 import vn.edu.iuh.fit.models.ClassRegistration;
 import vn.edu.iuh.fit.repositories.ClassRegistrationRepository;
 import vn.edu.iuh.fit.services.ClassRegistrationService;
@@ -32,5 +34,14 @@ public class ClassRegistrationController {
     @PutMapping
     public ClassRegistration update(@RequestBody ClassRegistration classRegistration) {
         return classRegistrationRepository.save(classRegistration);
+    }
+    @GetMapping("/class-registrations/{classId}")
+    public ResponseEntity<ClassRegistration> getClassRegistrationDetails(@PathVariable Long classId) {
+        ClassRegistration classRegistration = classRegistrationRepository.findById(classId).orElse(null);
+        if (classRegistration == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(classRegistration);
+        }
     }
 }

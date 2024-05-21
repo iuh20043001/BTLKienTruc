@@ -1,6 +1,8 @@
 package vn.edu.iuh.fit.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.models.ClassDetails;
 import vn.edu.iuh.fit.repositories.ClassDetailsRepository;
@@ -38,6 +40,20 @@ public class ClassDetailsController {
     public ClassDetails update(@RequestBody ClassDetails classDetails) {
         return classDetailsRepository.save(classDetails);
     }
+
+    @GetMapping("/class-details/{detailId}")
+    public ResponseEntity<ClassDetails> getClassDetails(@PathVariable Long detailId) {
+        Optional<ClassDetails> optionalClassDetails = classDetailsRepository.findById(detailId);
+        if (optionalClassDetails.isPresent()) {
+            ClassDetails classDetails = optionalClassDetails.get();
+            return ResponseEntity.ok().body(classDetails);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
+
 
 
 }

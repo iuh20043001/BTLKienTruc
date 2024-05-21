@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './registration.scss';
+
 const Registration = () => {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const [classRegistrations, setClassRegistrations] = useState([]);
   const [classDetails, setClassDetails] = useState([]);
+  const [selectedClassRow, setSelectedClassRow] = useState(null); // New state for class details
+  const [selectedClassRegistrationRow, setSelectedClassRegistrationRow] = useState(null); // New state for class registrations
   const [registeredCourses, setRegisteredCourses] = useState([]);
 
   useEffect(() => {
@@ -27,17 +30,18 @@ const Registration = () => {
       .catch((error) => console.error('Error fetching class registrations:', error));
   };
 
-  useEffect(() => {
-    fetch('http://localhost:8080/class-details')
+  const handleClassRegistrationRowClick = (index, classId) => {
+    setSelectedClassRegistrationRow(index);
+    fetch(`http://localhost:8080/class-details/class-details/${classId}`)
       .then((response) => response.json())
       .then((data) => {
-        setClassDetails(data);
+        setClassDetails([data]); // Đảm bảo dữ liệu là một mảng
       })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
+      .catch((error) => console.error('Error fetching class details:', error));
+  };
 
   useEffect(() => {
-    fetch('http://localhost:8080/registered-courses') // Thay thế URL này bằng URL thực tế của bạn
+    fetch('http://localhost:8080/registered-courses')
       .then((response) => response.json())
       .then((data) => {
         setRegisteredCourses(data);
@@ -45,46 +49,34 @@ const Registration = () => {
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  // const handleCourseSelect = (course) => {
-  //   setSelectedCourse(course);
-  // };
-
   const handleRowClick = (index) => {
     setSelectedRow(index);
+  };
+
+  const handleClassRowClick = (index) => {
+    setSelectedClassRow(index);
   };
 
   return (
     <div className="registration-container">
       <h2>ĐĂNG KÝ HỌC PHẦN</h2>
-      <div
-        className="registration-form"
-        style={{ fontSize: 17, marginBottom: '20px' }}>
+      <div className="registration-form" style={{ fontSize: 17, marginBottom: '20px' }}>
         <label htmlFor="registration-period">Đợt đăng ký:</label>
         <select id="registration-period" style={{ paddingRight: '20px' }}>
           <option value="HK1">HK1</option>
-          <option value="HK1">HK2</option>
-          <option value="HK1">HK3</option>
-          <option value="HK1">HK4</option>
-          <option value="HK1">HK5</option>
-          <option value="HK1">HK6</option>
-          <option value="HK1">HK7</option>
-          <option value="HK1">HK8</option>
+          <option value="HK2">HK2</option>
+          <option value="HK3">HK3</option>
+          <option value="HK4">HK4</option>
+          <option value="HK5">HK5</option>
+          <option value="HK6">HK6</option>
+          <option value="HK7">HK7</option>
+          <option value="HK8">HK8</option>
         </select>
         <input type="radio" id="new" name="registration-type" value="new" />
         <label htmlFor="new">Học mới</label>
-        <input
-          type="radio"
-          id="repeat"
-          name="registration-type"
-          value="repeat"
-        />
+        <input type="radio" id="repeat" name="registration-type" value="repeat" />
         <label htmlFor="repeat">Học lại</label>
-        <input
-          type="radio"
-          id="improve"
-          name="registration-type"
-          value="improve"
-        />
+        <input type="radio" id="improve" name="registration-type" value="improve" />
         <label htmlFor="improve">Học cải thiện</label>
       </div>
 
@@ -102,12 +94,10 @@ const Registration = () => {
           </tr>
         </thead>
         <tbody>
-        {courses.map((course, index) => (
+          {courses.map((course, index) => (
             <tr
               key={index}
-              style={{
-                backgroundColor: selectedRow === index ? '#f2f2f2' : 'white',
-              }}
+              style={{ backgroundColor: selectedRow === index ? '#f2f2f2' : 'white' }}
               onClick={() => {
                 handleRowClick(index);
                 handleCourseSelect(course);
@@ -130,58 +120,50 @@ const Registration = () => {
           ))}
         </tbody>
       </table>
+
+      <h4 style={{ marginTop: "17px", fontSize: "25px" }}>LỚP HỌC PHẦN CHỜ ĐĂNG KÝ</h4>
       {selectedCourse && (
-  <div className="class-registration-container">
-    <h4>LỚP HỌC PHẦN CHỜ ĐĂNG KÝ</h4>
-
-    <div className="class-registration-options">
-      <input
-        type="checkbox"
-        id="schedule-difference"
-        name="schedule-difference"
-      />
-      <label htmlFor="schedule-difference">
-        Hiển thị lớp học phần không trùng lịch
-      </label>
-    </div>
-    <table className="class-registration-table">
-      <thead>
-        <tr>
-          <th>STT</th>
-          <th>Mã LHP</th>
-          <th>Tên lớp học phần</th>
-          <th>Lớp dự kiến</th>
-          <th>Sĩ số tối đa</th>
-          <th>Đã đăng ký</th>
-          <th>Trạng thái</th>
-        </tr>
-      </thead>
-      <tbody>
-        {classRegistrations.map((registration, index) => (
-          <tr
-            key={index}
-            style={{
-              backgroundColor: selectedRow === index ? '#f2f2f2' : 'white',
-            }}
-            onClick={() => handleRowClick(index)}>
-            <td>{index + 1}</td>
-            <td>{registration.classCode}</td>
-            <td>{registration.className}</td>
-            <td>{registration.plannedClass}</td>
-            <td>{registration.maxCapacity}</td>
-            <td>{registration.registeredStudents}</td>
-            <td>{registration.status}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-)}
-
+        <div className="class-registration-container">
+          <div className="class-registration-options">
+            <input type="checkbox" id="schedule-difference" name="schedule-difference" />
+            <label htmlFor="schedule-difference">Hiển thị lớp học phần không trùng lịch</label>
+          </div>
+          <table className="class-registration-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã LHP</th>
+                <th>Tên lớp học phần</th>
+                <th>Lớp dự kiến</th>
+                <th>Sĩ số tối đa</th>
+                <th>Đã đăng ký</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              {classRegistrations.map((registration, index) => (
+                <tr
+                  key={index}
+                  style={{
+                    backgroundColor: selectedClassRegistrationRow === index ? '#f2f2f2' : 'white',
+                  }}
+                  onClick={() => handleClassRegistrationRowClick(index, registration.classId)}>
+                  <td>{index + 1}</td>
+                  <td>{registration.classCode}</td>
+                  <td>{registration.className}</td>
+                  <td>{registration.plannedClass}</td>
+                  <td>{registration.maxCapacity}</td>
+                  <td>{registration.registeredStudents}</td>
+                  <td>{registration.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <div className="additional-info">
         <h4 style={{ fontSize: '27px' }}>Chi Tiết Lớp Học Phần</h4>
-
         <div className="select-wrapper">
           <label htmlFor="group">Nhóm thực hành:</label>
           <select id="group" name="group">
@@ -209,8 +191,8 @@ const Registration = () => {
           {classDetails.map((detail, index) => (
             <tr
               key={index}
-              className={selectedRow === index ? 'selected-row' : ''}
-              onClick={() => handleRowClick(index)}>
+              className={selectedClassRow === index ? 'selected-row' : ''}
+              onClick={() => handleClassRowClick(index)}>
               <td>{index + 1}</td>
               <td>{detail.schedule}</td>
               <td>{detail.practiceGroup}</td>
@@ -227,7 +209,6 @@ const Registration = () => {
       <button className="btn-register-course">Đăng ký môn học</button>
 
       <h4>LỚP HỌC PHẦN ĐÃ ĐĂNG KÝ</h4>
-
       <div className="registered-courses">
         <table className="registered-courses-table">
           <thead>
