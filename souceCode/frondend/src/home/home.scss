@@ -2,36 +2,63 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+    padding: 20px;
+    min-height: 100vh;
+    background-image: url('./IUH2.jpg'); /* Đường dẫn tới hình nền của bạn */
+    background-size: cover;
+    background-position: center;
+     background-position: center;
+  }
 
-.user-info {
-    margin-top: 50px;
-    text-align: center;
-}
-
-.logout-btn {
-    margin-top: 10px;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+.header {
+  background-color: rgba(40, 214, 139, 0.804); /* Sử dụng RGBA để tạo màu nền có độ trong suốt */
+  color: rgb(25, 37, 25);
+  font-size: 50px;
+  font-weight: bold;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
 
 .links {
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px; /* Khoảng cách giữa các link */
 }
 
-.links a {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
+.link-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 260px;
+    height: 260px;
+    background-color: rgba(255, 255, 255, 0.901);
+    border: 1px solid #ddd;
+    border-radius: 10px;
     text-decoration: none;
-    color: blue;
-    margin-right: 1000px;
-}
+    color: #333;
+    font-size: 35px;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative; /* Để tạo lớp mờ nền */
+    overflow: hidden; /* Ẩn các phần vượt ra khỏi phần tử */
+    
+  }
 
-.links a:hover {
-    text-decoration: underline;
-    color: darkblue;
-}
+
+  .link-box:hover {
+    transform: translateY(-10px);
+    background-color: rgba(62, 179, 132, 0.85);
+    color: rgb(28, 36, 28);
+  }
+
+  .link-box:hover::before {
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.6); /* Tăng độ mờ khi rê chuột vào */
+  }

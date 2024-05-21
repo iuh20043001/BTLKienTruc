@@ -1,28 +1,121 @@
-.container {
-    text-align: center;
-}
-
-.info {
+/* studentInfo.scss */
+.container-student-info {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-
-.image {
-    margin-right: 20px;
-}
-
-.image img {
-    width: 150px;
-    height: 150px;
+    padding: 40px;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    min-height: 100vh;
+  }
+  
+  .container-student-info h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  
+  .details {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 100%; /* Increase the max-width for more space */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .personal-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .student-photo {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    object-fit: cover;
-}
-
-.details {
-    text-align: left;
-}
-
-.details p {
-    margin: 5px 0;
-}
+    border: 2px solid #4caf50;
+  }
+  
+  .personal-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .personal-details p {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .additional-info {
+    display: flex;
+    justify-content: space-between; /* Spread the columns evenly */
+    gap: 20px; /* Add some space between the columns */
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .details p {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .details p span {
+    font-weight: bold;
+    color: #4caf50;
+  }
+  
+  @media (max-width: 768px) {
+    .container-student-info {
+      padding: 20px;
+    }
+  
+    .container-student-info h2 {
+      font-size: 28px;
+    }
+  
+    .details {
+      padding: 20px;
+    }
+  
+    .details p {
+      font-size: 18px;
+    }
+  
+    .personal-info {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .student-photo {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .personal-details p {
+      font-size: 18px;
+    }
+  
+    .additional-info {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .column {
+      width: 100%;
+    }
+  }
+  

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./studentInfo.scss";
+import hinh from "../assets/avt.jpeg"
 
 const StudentInfo = () => {
     const [studentInfo, setStudentInfo] = useState(null);
@@ -19,20 +20,36 @@ const StudentInfo = () => {
 
     return (
         <div className="container">
-            <h2>THÔNG TIN SINH VIÊN</h2>
-            <div>
-            <div className="details">
-                        <p><b>Khóa:</b> 2020-2021</p>
-                        <p><b>Bậc đào tạo: </b>Đại học</p>
-                        <p><b>Ngành: </b>Kỹ thuật phần mềm</p>
-                        <p><b>Khoa:</b> Công nghệ thông tin</p>
-                        <p><b>Lớp:</b> Đại học Kỹ thuật phần mềm 16B - 7480103</p>
-                        <p><b>Loại hình đào tạo:</b> Chính quy</p>
-                        <p><b>Chuyên ngành</b> Kỹ thuật phần mềm - 7480103</p>
-                        <p><b>Cơ sở:</b> Cơ sở 1 Thành phố Hồ Chí Minh</p>
+            <div className="header">
+        THÔNG TIN SINH VIÊN
+      </div>
+      <div className="details">
+      <div className="personal-info">
+                    <img src={hinh} className="student-photo" />
+                    <div style={{margin:"30px"}}>
+                        <p><span>MSSV:</span> 20042961</p>
+                        <p><span>Họ tên:</span> Đặng Thị Quyền Trân</p>
+                        <p><span>Giới tính:</span> Nữ</p>
                     </div>
+                </div>
+                <div className="additional-info">
+                    <div className="column">
+                        <p><span>Trạng thái:</span> Đang học</p>
+                        <p><span>Mã hồ sơ:</span> 205HB27551191</p>
+                        <p><span>Ngày vào trường:</span> 21/9/2020</p>
+                        <p><span>Lớp học:</span> DHKTPM16B</p>
+                        <p><span>Cơ sở:</span> Cơ sở 1 (Thành phố Hồ Chí Minh)</p>
+                    </div>
+                    <div className="column">
+                        <p><span>Bậc đào tạo:</span> Đại học</p>
+                        <p><span>Loại hình đào tạo:</span> Chính quy</p>
+                        <p><span>Khoa:</span> Khoa Công nghệ Thông tin</p>
+                        <p><span>Ngành:</span> Kỹ thuật phần mềm</p>
+                        <p><span>Chuyên ngành:</span> Kỹ thuật phần mềm - 7480103</p>
+                        <p><span>Khóa học:</span> 2020 - 2021</p>
+                    </div>
+                </div>
             </div>
-            
         </div>
     );
 };

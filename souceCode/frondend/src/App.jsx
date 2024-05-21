@@ -6,6 +6,7 @@ import Student from './student/StudentInfo';
 import Curriculum from './curriculum/Curriculum';
 import Registration from './registration/Registration';
 import AcademicResults from './academicResults/AcademicResults'
+import WeeklySchedule from './weeklySchedule/WeeklySchedule'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/student-info" element={<Student />} />
         <Route path="/curriculum" element={<Curriculum />} />
         <Route path="/academic-results" element={<AcademicResults />} />
+        <Route path="/weekly-schedule" element={<WeeklySchedule />} />
       </Routes>
     </BrowserRouter>
   );
