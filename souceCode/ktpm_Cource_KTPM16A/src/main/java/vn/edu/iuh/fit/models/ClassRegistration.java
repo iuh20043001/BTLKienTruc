@@ -13,7 +13,8 @@ public class ClassRegistration {
     private Integer classId;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", nullable = false)
+    @JsonIgnoreProperties("classRegistrations")
     private Course course;
 
     @Column(name = "class_code", nullable = false)
@@ -34,10 +35,21 @@ public class ClassRegistration {
     @Column(name = "status")
     private String status;
 
+    // Constructors
+    public ClassRegistration() {}
 
-    // Constructors, getters, setters, toString method
+    public ClassRegistration(Integer classId, Course course, String classCode, String className, String plannedClass, Integer maxCapacity, Integer registeredStudents, String status) {
+        this.classId = classId;
+        this.course = course;
+        this.classCode = classCode;
+        this.className = className;
+        this.plannedClass = plannedClass;
+        this.maxCapacity = maxCapacity;
+        this.registeredStudents = registeredStudents;
+        this.status = status;
+    }
 
-
+    // Getters and Setters
     public Integer getClassId() {
         return classId;
     }
@@ -114,23 +126,5 @@ public class ClassRegistration {
                 ", registeredStudents=" + registeredStudents +
                 ", status='" + status + '\'' +
                 '}';
-    }
-
-    public ClassRegistration(Integer classId, Course course, String classCode, String className, String plannedClass, Integer maxCapacity, Integer registeredStudents, String status) {
-        this.classId = classId;
-        this.course = course;
-        this.classCode = classCode;
-        this.className = className;
-        this.plannedClass = plannedClass;
-        this.maxCapacity = maxCapacity;
-        this.registeredStudents = registeredStudents;
-        this.status = status;
-    }
-
-    public ClassRegistration(Integer classId) {
-        this.classId = classId;
-    }
-
-    public ClassRegistration() {
     }
 }

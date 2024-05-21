@@ -44,6 +44,13 @@ public class RegisteredCourse {
     @Column(name = "registration_status")
     private String registrationStatus;
 
+    // Thuộc tính mới
+    @Column(name = "instructor")
+    private String instructor;
+
+    @Column(name = "schedule")
+    private String schedule;
+
     public RegisteredCourse() {
     }
 
@@ -139,7 +146,25 @@ public class RegisteredCourse {
         this.registrationStatus = registrationStatus;
     }
 
-    public RegisteredCourse(Integer registrationId, Student student, ClassRegistration classRegistration, String courseName, String plannedClass, Integer credits, String practiceGroup, Double tuitionFee, Date deadline, String feeStatus, String registrationStatus) {
+    // Getters và setters cho thuộc tính mới
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+
+    public RegisteredCourse(Integer registrationId, Student student, ClassRegistration classRegistration, String courseName, String plannedClass, Integer credits, String practiceGroup, Double tuitionFee, Date deadline, String feeStatus, String registrationStatus, String instructor, String schedule) {
         this.registrationId = registrationId;
         this.student = student;
         this.classRegistration = classRegistration;
@@ -151,6 +176,8 @@ public class RegisteredCourse {
         this.deadline = deadline;
         this.feeStatus = feeStatus;
         this.registrationStatus = registrationStatus;
+        this.instructor = instructor;
+        this.schedule = schedule;
     }
 
     @Override
@@ -167,7 +194,8 @@ public class RegisteredCourse {
                 ", deadline=" + deadline +
                 ", feeStatus='" + feeStatus + '\'' +
                 ", registrationStatus='" + registrationStatus + '\'' +
+                ", instructor='" + instructor + '\'' +
+                ", schedule='" + schedule + '\'' +
                 '}';
     }
-// Constructors, getters, setters, toString method
 }

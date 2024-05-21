@@ -1,7 +1,6 @@
 package vn.edu.iuh.fit.models;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -28,32 +27,31 @@ public class Course {
     @Column(name = "max_students")
     private Integer maxStudents;
 
-    @OneToMany(mappedBy = "course")
+    @Column(name = "companion")
+    private String companion;
+
+    @Column(name = "syllabus")
+    private String syllabus;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClassRegistration> classRegistrations;
 
-    // Constructors, getters, setters, toString method
-
+    // Constructors
     public Course() {}
 
-    public Course(Integer courseId) {
+    public Course(Integer courseId, String courseCode, String courseName, Integer credits, String prerequisiteCourses, Integer maxStudents, String companion, String syllabus, List<ClassRegistration> classRegistrations) {
         this.courseId = courseId;
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.credits = credits;
+        this.prerequisiteCourses = prerequisiteCourses;
+        this.maxStudents = maxStudents;
+        this.companion = companion;
+        this.syllabus = syllabus;
+        this.classRegistrations = classRegistrations;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "courseId=" + courseId +
-                ", courseCode='" + courseCode + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", credits=" + credits +
-                ", prerequisiteCourses='" + prerequisiteCourses + '\'' +
-                ", maxStudents=" + maxStudents +
-                ", classRegistrations=" + classRegistrations +
-                '}';
-    }
-
-    // Getters and setters
-
+    // Getters and Setters
     public Integer getCourseId() {
         return courseId;
     }
@@ -102,13 +100,42 @@ public class Course {
         this.maxStudents = maxStudents;
     }
 
-    public Course(Integer courseId, String courseCode, String courseName, Integer credits, String prerequisiteCourses, Integer maxStudents, List<ClassRegistration> classRegistrations) {
-        this.courseId = courseId;
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.credits = credits;
-        this.prerequisiteCourses = prerequisiteCourses;
-        this.maxStudents = maxStudents;
+    public String getCompanion() {
+        return companion;
+    }
+
+    public void setCompanion(String companion) {
+        this.companion = companion;
+    }
+
+    public String getSyllabus() {
+        return syllabus;
+    }
+
+    public void setSyllabus(String syllabus) {
+        this.syllabus = syllabus;
+    }
+
+    public List<ClassRegistration> getClassRegistrations() {
+        return classRegistrations;
+    }
+
+    public void setClassRegistrations(List<ClassRegistration> classRegistrations) {
         this.classRegistrations = classRegistrations;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", courseCode='" + courseCode + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", credits=" + credits +
+                ", prerequisiteCourses='" + prerequisiteCourses + '\'' +
+                ", maxStudents=" + maxStudents +
+                ", companion='" + companion + '\'' +
+                ", syllabus='" + syllabus + '\'' +
+                ", classRegistrations=" + classRegistrations +
+                '}';
     }
 }

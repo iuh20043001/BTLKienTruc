@@ -63,6 +63,9 @@ public class Student {
     @Column(name = "graduation_info")
     private String graduationInfo;
 
+    @Column(name = "password")
+    private String password;
+
     public Student() {
     }
 
@@ -206,7 +209,15 @@ public class Student {
         this.graduationInfo = graduationInfo;
     }
 
-    public Student(Integer studentId, String name, Date birthdate, String address, String email, String phoneNumber, Major major, Class clazz, Integer enrollmentYear, String educationLevel, Department department, String trainingType, String specialization, String campus, Integer creditsRegistered, Double gpa, String graduationInfo) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Student(Integer studentId, String name, Date birthdate, String address, String email, String phoneNumber, Major major, Class clazz, Integer enrollmentYear, String educationLevel, Department department, String trainingType, String specialization, String campus, Integer creditsRegistered, Double gpa, String graduationInfo, String password) {
         this.studentId = studentId;
         this.name = name;
         this.birthdate = birthdate;
@@ -224,6 +235,7 @@ public class Student {
         this.creditsRegistered = creditsRegistered;
         this.gpa = gpa;
         this.graduationInfo = graduationInfo;
+        this.password = password;
     }
 
     @Override
@@ -246,7 +258,9 @@ public class Student {
                 ", creditsRegistered=" + creditsRegistered +
                 ", gpa=" + gpa +
                 ", graduationInfo='" + graduationInfo + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
-// Constructors, getters, setters, toString method
+
+    // Constructors, getters, setters, toString method
 }
