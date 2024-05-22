@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.models.ClassDetails;
+import vn.edu.iuh.fit.models.ClassRegistration;
 import vn.edu.iuh.fit.repositories.ClassDetailsRepository;
 
 import java.util.List;
@@ -27,5 +28,9 @@ public class ClassDetailsService {
 
     public List<ClassDetails> findAll() {
         return classDetailsRepository.findAll();
+    }
+
+    public List<ClassDetails> getClassDetailsByClassRegistration(ClassRegistration classRegistration) {
+        return classDetailsRepository.findByClassRegistration(classRegistration);
     }
 }

@@ -3,6 +3,8 @@ package vn.edu.iuh.fit.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "class_registration")
 public class ClassRegistration {
@@ -16,6 +18,10 @@ public class ClassRegistration {
     @JoinColumn(name = "course_id", nullable = false)
     @JsonIgnoreProperties("classRegistrations")
     private Course course;
+
+    @OneToMany(mappedBy = "classRegistration", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("classRegistration")
+    private List<ClassDetails> classDetails;
 
     @Column(name = "class_code", nullable = false)
     private String classCode;
@@ -60,6 +66,14 @@ public class ClassRegistration {
 
     public Course getCourse() {
         return course;
+    }
+
+    public List<ClassDetails> getClassDetails() {
+        return classDetails;
+    }
+
+    public void setClassDetails(List<ClassDetails> classDetails) {
+        this.classDetails = classDetails;
     }
 
     public void setCourse(Course course) {
@@ -119,6 +133,7 @@ public class ClassRegistration {
         return "ClassRegistration{" +
                 "classId=" + classId +
                 ", course=" + course +
+                ", classDetails=" + classDetails +
                 ", classCode='" + classCode + '\'' +
                 ", className='" + className + '\'' +
                 ", plannedClass='" + plannedClass + '\'' +

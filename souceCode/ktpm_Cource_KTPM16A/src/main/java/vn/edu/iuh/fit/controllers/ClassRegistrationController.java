@@ -26,10 +26,15 @@ public class ClassRegistrationController {
     }
 
     @GetMapping("/{id}")
-    public ClassRegistration findById(@PathVariable("id") long id) {
-        Optional<ClassRegistration> classRegistration = classRegistrationRepository.findById(id);
-        return classRegistration.orElse(null);
+    public ResponseEntity<ClassRegistration> getClassRegistration(@PathVariable("id") Long id) {
+        Optional<ClassRegistration> classRegistration = classRegistrationService.findById(id);
+        if (classRegistration.isPresent()) {
+            return ResponseEntity.ok().body(classRegistration.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @PutMapping
     public ClassRegistration update(@RequestBody ClassRegistration classRegistration) {
@@ -44,4 +49,25 @@ public class ClassRegistrationController {
             return ResponseEntity.ok().body(classRegistration);
         }
     }
-}
+
+    @GetMapping("/{classId}/class-details")
+    public ResponseEntity<List<ClassDetails>> getClassDetails(@PathVariable Long classId) {
+        List<ClassDetails> classDetails = classRegistrationService.getClassDetailsByClassId(classId);
+        if (classDetails.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(classDetails);
+        }
+    }
+
+
+    @GetMapping("/{classId}/class-details/count")
+    public int getClassDetailsCount(@PathVariable Long classId) {
+        ClassRegistration classRegistration = classRegistrationRepository.findById(classId).orElse(null);
+        if (classRegistration != null) {
+            List<ClassDetails> classDetailsList = classRegistration.getClassDetails();
+            return classDetailsList.size();
+        }
+        return 0; // Trả về 0 nếu không tìm thấy lớp học phần
+
+}}
