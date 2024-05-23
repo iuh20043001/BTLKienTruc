@@ -12,10 +12,6 @@ const Modal = ({ course, onClose }) => {
         <table className="course-details-table">
           <tbody>
             <tr>
-              <td><strong>Mã MH:</strong></td>
-              <td>{course.courseCode}</td>
-            </tr>
-            <tr>
               <td><strong>Tên môn học:</strong></td>
               <td>{course.courseName}</td>
             </tr>
@@ -32,16 +28,24 @@ const Modal = ({ course, onClose }) => {
               <td>{course.schedule}</td>
             </tr>
             <tr>
-              <td><strong>Phòng học:</strong></td>
-              <td>{course.room}</td>
+              <td><strong>Hạn nộp:</strong></td>
+              <td>Chờ thông báo</td>
             </tr>
             <tr>
-              <td><strong>Dãy nhà:</strong></td>
-              <td>{course.building}</td>
+              <td><strong>Tình trạng:</strong></td>
+              <td>Chờ sinh viên đăng ký</td>
             </tr>
             <tr>
-              <td><strong>Cơ sở:</strong></td>
-              <td>{course.campus}</td>
+              <td><strong>Nhóm TH:</strong></td>
+              <td>{course.practiceGroup}</td>
+            </tr>
+            <tr>
+              <td><strong>Tình trạng:</strong></td>
+              <td>{course.registrationStatus}</td>
+            </tr>
+            <tr>
+              <td><strong>Học phí:</strong></td>
+              <td>Chờ thông báo</td>
             </tr>
           </tbody>
         </table>

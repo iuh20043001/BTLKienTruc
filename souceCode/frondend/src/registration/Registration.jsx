@@ -44,45 +44,38 @@ const Registration = () => {
   // };
 
   const handleCourseSelect = (course) => {
-    console.log('Selected course:', course); // Kiểm tra dữ liệu course được chọn
+    console.log('Selected course:', course);
     setSelectedCourse(course);
     setClassDetails([]); // Reset class details when a new course is selected
     setClassRegistrations([]); // Reset class registrations when a new course is selected
-  
-    fetch(`http://localhost:8080/courses/${course.courseId}/class-registrations`)
-      .then(response => response.json())
-      .then(data => {
-        console.log('Class registrations fetched:', data); // Kiểm tra dữ liệu nhận được
+
+    fetch(
+      `http://localhost:8080/courses/${course.courseId}/class-registrations`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Class registrations fetched:', data);
         setClassRegistrations(data);
-  
-        if (data.length > 0) {
-          const classId = data[0].classId; // Giả sử lấy classId của lớp học đầu tiên
-          fetch(`http://localhost:8080/class-registrations/${classId}/class-details`)
-            .then(response => response.json())
-            .then(details => {
-              console.log('Class details fetched:', details); // Kiểm tra dữ liệu nhận được
-              setClassDetails(details);
-  
-              if (details.length > 0) {
-                const detail = details[0];
-                // Gán thông tin chi tiết vào khóa học được chọn
-                setSelectedCourse({
-                  ...course,
-                  instructor: detail.instructor || 'Unknown', // Giảng viên
-                  schedule: detail.schedule || 'Unknown', // Lịch học
-                  room: detail.room || 'Unknown', // Phòng học
-                  building: detail.building || 'Unknown', // Dãy nhà
-                  campus: detail.campus || 'Unknown', // Cơ sở
-                });
-              }
-            })
-            .catch(error => console.error('Error fetching class details:', error));
-        }
+
+        // Extract all class details
+        let allDetails = [];
+        data.forEach((registration) => {
+          // Check if classRegistration and classDetails exist before accessing them
+          if (
+            registration.classRegistration &&
+            registration.classRegistration.classDetails
+          ) {
+            allDetails = allDetails.concat(
+              registration.classRegistration.classDetails
+            );
+          }
+        });
+        setClassDetails(allDetails);
       })
-      .catch(error => console.error('Error fetching class registrations:', error));
+      .catch((error) =>
+        console.error('Error fetching class registrations:', error)
+      );
   };
-  
-  
 
   const handleClassRegistrationRowClick = (index, classId) => {
     setSelectedClassRegistrationRow(index);
@@ -115,11 +108,10 @@ const Registration = () => {
       schedule: course.schedule || 'Unknown', // Lịch học
       room: course.room || 'Unknown', // Phòng học
       building: course.building || 'Unknown', // Dãy nhà
-      campus: course.campus || 'Unknown' // Cơ sở
+      campus: course.campus || 'Unknown', // Cơ sở
     });
     setShowModal(true);
   };
-  
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -138,66 +130,106 @@ const Registration = () => {
 
   const handleRegisterCourse = () => {
     if (
-      selectedCourse &&
-      selectedClassRow !== null &&
-      selectedPracticeGroup !== null
+      !selectedCourse ||
+      selectedClassRow === null ||
+      !selectedPracticeGroup
     ) {
-      if (classDetails.length > 0 && selectedClassRow < classDetails.length) {
-        const selectedClass = classDetails[selectedClassRow];
-
-        const studentId = selectedCourse.studentId;
-
-        const plannedClasses = classRegistrations.map(
-          (registration) => registration.classRegistration.plannedClass
-        );
-
-        const data = {
-          studentId: studentId,
-          classId: selectedClass.classId,
-          courseId: selectedCourse?.classRegistration?.course?.courseId || '',
-          courseName: selectedCourse.courseName,
-          plannedClass: plannedClasses,
-          credits: selectedCourse.credits,
-          practiceGroup: selectedPracticeGroup,
-          registrationStatus: 'Dang ky moi',
-          tuitionFee: '',
-          deadline: '',
-          feeStatus: 'Chua',
-          instructor: selectedClass.instructor,
-          schedule: selectedClass.schedule,
-        };
-
-        fetch('http://localhost:8080/registered-courses', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                `Network response was not ok: ${response.statusText}`
-              );
-            }
-            return response.json();
-          })
-          .then((responseData) => {
-            console.log('Dữ liệu đã được lưu:', responseData);
-            setRegisteredCourses([...registeredCourses, responseData]);
-          })
-          .catch((error) => {
-            console.error('Lỗi khi gửi yêu cầu đăng ký:', error);
-          });
-      } else {
-        console.log('Không có thông tin chi tiết lớp học được chọn');
-      }
-    } else {
-      console.log(
+      console.error(
         'Vui lòng chọn môn học, lớp học và nhóm thực hành trước khi đăng ký.'
       );
+      return;
+    }
+
+    if (classDetails.length > 0 && selectedClassRow < classDetails.length) {
+      const selectedClass = classDetails[selectedClassRow];
+
+      const studentId = selectedCourse.studentId;
+
+      const plannedClasses = classRegistrations.map(
+        (registration) => registration.classRegistration?.plannedClass || ''
+      );
+
+      const data = {
+        studentId: studentId,
+        classId: selectedClass.classId,
+        courseId: selectedCourse.courseId,
+        courseName: selectedCourse.courseName,
+        // plannedClass: plannedClasses,
+        credits: selectedCourse.credits,
+        practiceGroup: selectedPracticeGroup,
+        registrationStatus: 'Dang ky moi',
+        tuitionFee: '',
+        deadline: '',
+        feeStatus: 'Chua',
+        instructor: selectedClass.instructor,
+        schedule: selectedClass.schedule,
+        room: selectedClass.room,
+        building: selectedClass.building,
+        campus: selectedClass.campus,
+      };
+
+      console.log('Payload to be sent:', JSON.stringify(data));
+
+      fetch('http://localhost:8080/registered-courses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Network response was not ok: ${response.statusText}`
+            );
+          }
+          return response.json();
+        })
+        .then((responseData) => {
+          console.log('Dữ liệu đã được lưu:', responseData);
+          setRegisteredCourses([...registeredCourses, responseData]);
+        })
+        .catch((error) => {
+          console.error('Lỗi khi gửi yêu cầu đăng ký:', error);
+        });
+    } else {
+      console.log('Không có thông tin chi tiết lớp học được chọn');
     }
   };
+
+  const handleCancelRegistration = (registrationId) => {
+    fetch(`http://localhost:8080/registered-courses/${registrationId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok: ${response.statusText}`
+          );
+        }
+        return response.text(); // Trả về văn bản để kiểm tra phản hồi, không cần JSON
+      })
+      .then((responseText) => {
+        console.log('Đã hủy đăng ký:', responseText);
+        // Sau khi xóa thành công, cập nhật danh sách lớp học phần đã đăng ký bằng cách loại bỏ phần tử đã xóa
+        setRegisteredCourses(
+          registeredCourses.filter(
+            (course) => course.registrationId !== registrationId
+          )
+        );
+        // Làm mới trang sau 500ms
+        setTimeout(() => {
+          console.log('Reloading page...');
+          window.location.reload(true); // Buộc làm mới trang từ server
+          // history.go(0); // Bạn có thể thử cái này nếu window.location.reload không hoạt động
+        }, 500);
+      })
+      .catch((error) => {
+        console.error('Lỗi khi gửi yêu cầu hủy đăng ký:', error); // In ra lỗi cụ thể
+      });
+  };
+  
+  
 
   return (
     <div className="registration-container">
@@ -397,35 +429,47 @@ const Registration = () => {
               <th>STT</th>
               <th>Mã LHP</th>
               <th>Tên môn học</th>
-              <th>Lớp học dự kiến</th>
+              <th>Lịch học</th>
               <th>Số TC</th>
               <th>Nhóm TH</th>
               <th>Học phí</th>
-              <th>Hạn nộp</th>
+              <th>Giảng viên</th>
               <th>Thu</th>
               <th>Trạng thái DK</th>
             </tr>
           </thead>
           <tbody>
             {registeredCourses.map((course, index) => (
-              <tr key={index} onClick={() => handleViewCourse(course)}>
+              <tr key={index}>
                 <td>
                   <div className="dropdown">
-                    <button className="dropbtn">⋮</button>
+                    <button
+                      className="dropbtn"
+                      onClick={() => handleViewCourse(course, index)}>
+                      ⋮
+                    </button>
                     <div className="dropdown-content">
-                      <button>Hủy đăng ký</button>
-                      <button>Xem</button>
+                      <button
+                        onClick={() =>
+                          handleCancelRegistration(course.registrationId)
+                        }>
+                        Hủy đăng ký
+                      </button>
+
+                      <button onClick={() => handleViewCourse(course, index)}>
+                        Xem
+                      </button>
                     </div>
                   </div>
                 </td>
                 <td>{index + 1}</td>
                 <td>{course.registrationId}</td>
                 <td>{course.courseName}</td>
-                <td>{course.plannedClass}</td>
+                <td>{course.schedule}</td>
                 <td>{course.credits}</td>
                 <td>{course.practiceGroup}</td>
                 <td>{course.tuitionFee}</td>
-                <td>{course.deadline}</td>
+                <td>{course.instructor}</td>
                 <td>{course.feeStatus}</td>
                 <td>{course.registrationStatus}</td>
               </tr>
@@ -434,7 +478,11 @@ const Registration = () => {
         </table>
       </div>
       {showModal && selectedCourse && (
-        <Modal course={selectedCourse} onClose={handleCloseModal} />
+        <Modal
+          course={selectedCourse}
+          classDetail={classDetails[selectedClassRow]} // Chỉ truyền chi tiết của lớp học đã chọn
+          onClose={handleCloseModal}
+        />
       )}
     </div>
   );
