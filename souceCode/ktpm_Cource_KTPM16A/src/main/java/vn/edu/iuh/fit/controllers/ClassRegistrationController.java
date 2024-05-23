@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.models.ClassDetails;
@@ -51,7 +52,7 @@ public class ClassRegistrationController {
     }
 
     @GetMapping("/{classId}/class-details")
-    public ResponseEntity<List<ClassDetails>> getClassDetails(@PathVariable Long classId) {
+    public ResponseEntity<?> getClassDetails(@PathVariable Long classId) {
         List<ClassDetails> classDetails = classRegistrationService.getClassDetailsByClassId(classId);
         if (classDetails.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -60,14 +61,25 @@ public class ClassRegistrationController {
         }
     }
 
-
     @GetMapping("/{classId}/class-details/count")
-    public int getClassDetailsCount(@PathVariable Long classId) {
+    public ResponseEntity<?> getClassDetailsCount(@PathVariable Long classId) {
         ClassRegistration classRegistration = classRegistrationRepository.findById(classId).orElse(null);
         if (classRegistration != null) {
             List<ClassDetails> classDetailsList = classRegistration.getClassDetails();
-            return classDetailsList.size();
+            return ResponseEntity.ok().body(classDetailsList.size());
         }
-        return 0; // Trả về 0 nếu không tìm thấy lớp học phần
+        return ResponseEntity.notFound().build(); // Trả về 404 nếu không tìm thấy lớp học phần
+    }
 
-}}
+    @PostMapping
+    public ResponseEntity<?> createClassRegistration(@RequestBody ClassRegistration classRegistration) {
+        try {
+            ClassRegistration savedClassRegistration = classRegistrationRepository.save(classRegistration);
+            return ResponseEntity.ok().body(savedClassRegistration);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create class registration: " + e.getMessage());
+        }
+    }
+
+}

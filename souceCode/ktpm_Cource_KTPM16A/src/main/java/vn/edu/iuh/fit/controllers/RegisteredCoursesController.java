@@ -33,4 +33,9 @@ public class RegisteredCoursesController {
     public RegisteredCourse update(@RequestBody RegisteredCourse registeredCourse) {
         return registeredCourseRepository.save(registeredCourse);
     }
+
+    @PostMapping
+    public RegisteredCourse create(@RequestBody RegisteredCourse registeredCourse) {
+        return registeredCourseRepository.save(registeredCourse);
+    }
 }

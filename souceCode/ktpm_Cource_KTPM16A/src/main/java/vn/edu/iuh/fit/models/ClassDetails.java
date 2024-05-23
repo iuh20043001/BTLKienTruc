@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "class_details")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ClassDetails {
 
     @Id
@@ -12,7 +13,7 @@ public class ClassDetails {
     @Column(name = "detail_id")
     private Integer detailId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id")
     private ClassRegistration classRegistration;
 
