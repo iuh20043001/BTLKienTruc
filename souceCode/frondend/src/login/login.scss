@@ -1,53 +1,90 @@
+/* login.scss */
 .container-login {
-  max-width: 600px; 
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-top: 50px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-
-  .text-login {
-    font-size: 1.25rem; 
-    margin-bottom: 15px; 
-    text-align: center;
-  }
-
-  .form-group {
-    margin-bottom: 15px; 
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    input {
-      width: 100%;
-      padding: 8px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-  }
-
-  .ac {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; 
-    margin-top: 15px;
-
-    button {
-      padding: 10px 15px; 
-      font-size: 1rem;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #0056b3;
-      }
-    }
-  }
+  max-width: 600px;
+  margin: 150px auto;
+  padding: 40px;
+  height: 500px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  text-align: center;
 }
+
+.text-login {
+  color: #333;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.form-control {
+  height: calc(2.5rem + 2px);
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #f8f9fa;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.custom-checkbox input {
+  margin-right: 10px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin-top: 15px;
+  background-color: #ff6600;
+  border-color: #ff6600;
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin-top: 10px;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.captcha {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.captcha input {
+  flex: 1;
+  margin-right: 10px;
+}
+

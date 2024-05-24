@@ -1,19 +1,55 @@
 package vn.edu.iuh.fit.models;
 
+import jakarta.persistence.*;
+
+@Entity
 public class CurriculumCourse {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id; // Sửa thành kiểu dữ liệu phù hợp với cơ sở dữ liệu của bạn, ví dụ: Long
+
+    @Column(name = "course_code")
     private String courseCode;
-    private int stt;
+
+    @Column(name = "stt")
+    private String stt;
+
+    @Column(name = "course_name")
     private String courseName;
-    private int courseId;
+
+    @Column(name = "course_id")
+    private String courseId;
+
+    @Column(name = "companion")
     private String companion;
+
+    @Column(name = "prerequisites")
     private String prerequisites;
+
+    @Column(name = "credits")
     private int credits;
-    private int lectureHours;
-    private int labHours;
+
+    @Column(name = "lecture_hours")
+    private String lectureHours;
+
+    @Column(name = "lab_hours")
+    private String labHours;
+
+    @Column(name = "pass_status")
     private String passStatus;
+
+    @Column(name = "syllabus")
     private String syllabus;
 
-    public CurriculumCourse(String courseCode, int stt, String courseName, int courseId, String companion, String prerequisites, int credits, int lectureHours, int labHours, String passStatus, String syllabus) {
+    public CurriculumCourse() {
+    }
+
+    public CurriculumCourse(int id) {
+        this.id = id;
+    }
+
+    public CurriculumCourse(int id, String courseCode, String stt, String courseName, String courseId, String companion, String prerequisites, int credits, String lectureHours, String labHours, String passStatus, String syllabus) {
+        this.id = id;
         this.courseCode = courseCode;
         this.stt = stt;
         this.courseName = courseName;
@@ -30,21 +66,29 @@ public class CurriculumCourse {
     @Override
     public String toString() {
         return "CurriculumCourse{" +
-                "courseCode='" + courseCode + '\'' +
-                ", stt=" + stt +
+                "id=" + id +
+                ", courseCode='" + courseCode + '\'' +
+                ", stt='" + stt + '\'' +
                 ", courseName='" + courseName + '\'' +
-                ", courseId=" + courseId +
+                ", courseId='" + courseId + '\'' +
                 ", companion='" + companion + '\'' +
                 ", prerequisites='" + prerequisites + '\'' +
                 ", credits=" + credits +
-                ", lectureHours=" + lectureHours +
-                ", labHours=" + labHours +
+                ", lectureHours='" + lectureHours + '\'' +
+                ", labHours='" + labHours + '\'' +
                 ", passStatus='" + passStatus + '\'' +
                 ", syllabus='" + syllabus + '\'' +
                 '}';
     }
 
-    // Getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getCourseCode() {
         return courseCode;
     }
@@ -53,11 +97,11 @@ public class CurriculumCourse {
         this.courseCode = courseCode;
     }
 
-    public int getStt() {
+    public String getStt() {
         return stt;
     }
 
-    public void setStt(int stt) {
+    public void setStt(String stt) {
         this.stt = stt;
     }
 
@@ -69,11 +113,11 @@ public class CurriculumCourse {
         this.courseName = courseName;
     }
 
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
@@ -101,19 +145,19 @@ public class CurriculumCourse {
         this.credits = credits;
     }
 
-    public int getLectureHours() {
+    public String getLectureHours() {
         return lectureHours;
     }
 
-    public void setLectureHours(int lectureHours) {
+    public void setLectureHours(String lectureHours) {
         this.lectureHours = lectureHours;
     }
 
-    public int getLabHours() {
+    public String getLabHours() {
         return labHours;
     }
 
-    public void setLabHours(int labHours) {
+    public void setLabHours(String labHours) {
         this.labHours = labHours;
     }
 
@@ -132,5 +176,6 @@ public class CurriculumCourse {
     public void setSyllabus(String syllabus) {
         this.syllabus = syllabus;
     }
-}
 
+    // Constructors, getters, setters, and toString method
+}

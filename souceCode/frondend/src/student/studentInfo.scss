@@ -1,121 +1,79 @@
 /* studentInfo.scss */
-.container-student-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-    min-height: 100vh;
-  }
-  
-  .container-student-info h2 {
-    font-size: 36px;
-    margin-bottom: 30px;
-    color: #333;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
-  
-  .details {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    max-width: 100%; /* Increase the max-width for more space */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .personal-info {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .student-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 2px solid #4caf50;
-  }
-  
-  .personal-details {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .personal-details p {
-    margin: 0;
-    font-size: 20px;
-    color: #333;
-  }
-  
-  .additional-info {
-    display: flex;
-    justify-content: space-between; /* Spread the columns evenly */
-    gap: 20px; /* Add some space between the columns */
-  }
-  
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .details p {
-    margin: 0;
-    font-size: 20px;
-    color: #333;
-  }
-  
-  .details p span {
-    font-weight: bold;
-    color: #4caf50;
-  }
-  
-  @media (max-width: 768px) {
-    .container-student-info {
-      padding: 20px;
-    }
-  
-    .container-student-info h2 {
-      font-size: 28px;
-    }
-  
-    .details {
-      padding: 20px;
-    }
-  
-    .details p {
-      font-size: 18px;
-    }
-  
-    .personal-info {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .student-photo {
-      width: 100px;
-      height: 100px;
-    }
-  
-    .personal-details p {
-      font-size: 18px;
-    }
-  
-    .additional-info {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .column {
-      width: 100%;
-    }
-  }
-  
+body {
+  background: #f0f2f5;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  font-size: 26px;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.personal-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.student-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007bff;
+}
+
+.personal-info p {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #555;
+}
+
+.personal-info span {
+  font-weight: 700;
+  color: #3e7f97e9;
+}
+
+.additional-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.column p {
+  font-size: 16px;
+  margin: 6px 0;
+  color: #555;
+}
+
+.column span {
+  font-weight: 600;
+  color: #328469ce;
+}
