@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./studentInfo.scss";
-import hinh from "../assets/avt.jpeg"
+import hinh from "../assets/avt.jpeg";
 
 const StudentInfo = () => {
     const [studentInfo, setStudentInfo] = useState(null);
@@ -20,13 +20,11 @@ const StudentInfo = () => {
 
     return (
         <div className="container">
-            <div className="header">
-        THÔNG TIN SINH VIÊN
-      </div>
-      <div className="details">
-      <div className="personal-info">
-                    <img src={hinh} className="student-photo" />
-                    <div style={{margin:"30px"}}>
+            <div className="header">THÔNG TIN SINH VIÊN</div>
+            <div className="details">
+                <div className="personal-info">
+                    <img src={hinh} className="student-photo" alt="Student" />
+                    <div>
                         <p><span>MSSV:</span> 20042961</p>
                         <p><span>Họ tên:</span> Đặng Thị Quyền Trân</p>
                         <p><span>Giới tính:</span> Nữ</p>

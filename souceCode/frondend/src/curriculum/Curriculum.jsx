@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './curriculum.scss';
 
 const Curriculum = () => {
+  const [curriculumCourses, setCurriculumCourses] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/curriculum-courses');
+        if (!response.ok) {
+          throw new Error('Failed to fetch curriculum courses');
+        }
+        const data = await response.json();
+        setCurriculumCourses(data); // Cập nhật state curriculumCourses với dữ liệu nhận được từ API
+      } catch (error) {
+        console.error('Error fetching curriculum courses:', error);
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="curriculum-container">
       <h2>CHƯƠNG TRÌNH KHUNG</h2>
+      {error && <p>{error}</p>}
       <table className="curriculum-table">
         <thead>
-          <tr style={{fontSize: 15}}>
+          <tr style={{ fontSize: 15 }}>
             <th>Mã môn học</th>
             <th>STT</th>
             <th>Tên môn học</th>
@@ -26,21 +48,26 @@ const Curriculum = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>MH001</td>
-            <td>1</td>
-            <td>Lập trình căn bản</td>
-            <td>1</td>
-            <td>HP001</td>
-            <td>3</td>
-            <td>30</td>
-            <td>30</td>
-            <td></td>
-            <td><input type="checkbox" /></td>
-            <td><a href="#">Xem</a></td>
-          </tr>
-          {/* Thêm các hàng khác tương tự */}
-          
+          {curriculumCourses.map((course) => (
+            <tr key={course.id}>
+              <td>{course.courseCode}</td>
+              <td>{course.stt}</td>
+              <td>{course.courseName}</td>
+              <td>{course.courseId}</td>
+              <td>{course.companion}</td>
+              <td>{course.prerequisites}</td>
+              <td>{course.credits}</td>
+              <td>{course.lectureHours}</td>
+              <td>{course.labHours}</td>
+              <td>{course.passStatus}</td>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>
+                <a href="#">Xem</a>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

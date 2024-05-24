@@ -9,6 +9,8 @@ import './login.scss';
 const Login = () => {
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
+  const [captcha, setCaptcha] = useState('');
+  const [isGraduated, setIsGraduated] = useState(false);
   const navigate = useNavigate();
 
   const handleClickLogin = async () => {
@@ -64,10 +66,12 @@ const Login = () => {
 
   return (
     <div className="container-login">
-      <h2 className="text-login">ĐĂNG NHẬP</h2>
+
+      <h3 className="text-login">ĐĂNG NHẬP HỆ THỐNG</h3>
       <div className="form-group">
         <label htmlFor="student-id">Mã Sinh Viên:</label>
         <input
+        style={{marginTop:"10px"}}
           type="text"
           id="student-id"
           className="form-control"
@@ -79,6 +83,7 @@ const Login = () => {
       <div className="form-group">
         <label htmlFor="password">Mật khẩu:</label>
         <input
+        style={{marginTop:"10px"}}
           type="password"
           id="password"
           className="form-control"
@@ -87,14 +92,24 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      <div className="form-group custom-checkbox">
+        <input
+          type="checkbox"
+          id="is-graduated"
+          checked={isGraduated}
+          onChange={(e) => setIsGraduated(e.target.checked)}
+        />
+        <label htmlFor="is-graduated">Đã tốt nghiệp</label>
+      </div>
+      
       <div className="ac">
         <button
-          style={{ marginTop: '10px', marginLeft: '30px' }}
           className="btn btn-primary"
           onClick={() => navigate('/home')}>
           Đăng nhập
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
