@@ -156,7 +156,7 @@ const Registration = () => {
           classId: selectedClass.classId,
           courseId: selectedCourse?.classRegistration?.course?.courseId || '',
           courseName: selectedCourse.courseName,
-          plannedClass: plannedClasses,
+          // plannedClass: plannedClasses,
           credits: selectedCourse.credits,
           practiceGroup: selectedPracticeGroup,
           registrationStatus: 'Dang ky moi',
