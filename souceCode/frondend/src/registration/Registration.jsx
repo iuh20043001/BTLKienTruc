@@ -134,62 +134,7 @@ const Registration = () => {
       selectedClassRow === null ||
       !selectedPracticeGroup
     ) {
-<<<<<<< HEAD
-      if (classDetails.length > 0 && selectedClassRow < classDetails.length) {
-        const selectedClass = classDetails[selectedClassRow];
-
-        const studentId = selectedCourse.studentId;
-
-        const plannedClasses = classRegistrations.map(
-          (registration) => registration.classRegistration.plannedClass
-        );
-
-        const data = {
-          studentId: studentId,
-          classId: selectedClass.classId,
-          courseId: selectedCourse?.classRegistration?.course?.courseId || '',
-          courseName: selectedCourse.courseName,
-          // plannedClass: plannedClasses,
-          credits: selectedCourse.credits,
-          practiceGroup: selectedPracticeGroup,
-          registrationStatus: 'Dang ky moi',
-          tuitionFee: '',
-          deadline: '',
-          feeStatus: 'Chua',
-          instructor: selectedClass.instructor,
-          schedule: selectedClass.schedule,
-        };
-
-        fetch('http://localhost:8080/registered-courses', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                `Network response was not ok: ${response.statusText}`
-              );
-            }
-            return response.json();
-          })
-          .then((responseData) => {
-            console.log('Dữ liệu đã được lưu:', responseData);
-            setRegisteredCourses([...registeredCourses, responseData]);
-          })
-          .catch((error) => {
-            console.error('Lỗi khi gửi yêu cầu đăng ký:', error);
-          });
-      } else {
-        console.log('Không có thông tin chi tiết lớp học được chọn');
-      }
-    } else {
-      console.log(
-=======
       console.error(
->>>>>>> 9b26e700e98c98d34dc7e17ee2832d2d839a63b8
         'Vui lòng chọn môn học, lớp học và nhóm thực hành trước khi đăng ký.'
       );
       return;
